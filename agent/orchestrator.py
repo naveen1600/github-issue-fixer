@@ -29,16 +29,12 @@ async def run_fix_pipeline(
     repo_full_name: str,
     issue_number: int,
     dry_run: bool = False,
-    auto_pr: bool = False,
 ) -> str | None:
     """
     Full pipeline: fetch issue → clone → branch → agent loop → commit → push.
 
     After pushing, pauses and returns a FixResult for human review.
     The PR is only created when create_pr() is called explicitly.
-
-    If auto_pr=True the PR is created immediately (webhook mode).
-    Returns the PR URL when auto_pr=True, otherwise None (CLI handles PR step).
     """
     workspace: Path | None = None
     try:
@@ -99,10 +95,6 @@ async def run_fix_pipeline(
             fork_full_name=fork_full_name,
         )
 
-        if auto_pr:
-            return create_pr(fix_result)
-
-        # Return fix_result via a module-level store so cli.py can retrieve it
         _pending_fix[issue_number] = fix_result
         return None
 

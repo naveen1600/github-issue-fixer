@@ -52,7 +52,6 @@ def main() -> None:
             repo_full_name=repo,
             issue_number=issue_number,
             dry_run=args.dry_run,
-            auto_pr=False,  # always pause for human review in CLI mode
         )
     )
 

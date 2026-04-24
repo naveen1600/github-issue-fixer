@@ -12,7 +12,6 @@ class Config(BaseSettings):
 
     # GitHub
     github_token: str = Field(..., description="GitHub Fine-Grained PAT")
-    github_webhook_secret: str = Field(..., description="HMAC secret for webhook verification")
     trigger_label: str = Field("ai-fix")
     base_branch: str = Field("main")
     required_reviewers: list[str] = Field(default_factory=list)
